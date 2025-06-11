@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'jenkins-ssh', url: 'git@github.com:Zumel-bot/node-app.git', branch: 'main' // Замените на свой URL и ID учетных данных
+                git credentialsId: 'jenkins-ssh', url: 'git@github.com:Zumel-bot/node-app.git' // Замените на свой URL и ID учетных данных
             }
         }
 
