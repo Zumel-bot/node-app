@@ -1,22 +1,26 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'M3'  // Используем Maven tool с именем 'M3', которое вы настроили в Jenkins
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'jenkins-ssh', url: 'git@github.com:Zumel-bot/node-app.git' // Замените на свой URL и ID учетных данных
+                git credentialsId: 'jenkins-ssh', url: 'git@github.com:Zumel-bot/node-app.git'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean install -DskipTests=true' // Команда сборки Maven, пропускаем тесты на этапе сборки для скорости. Замените на свою команду.
+                sh 'mvn clean install -DskipTests=true'
             }
         }
 
         stage('Run') {
             steps {
-                sh 'java -jar target/*.jar' // Запускаем собранный jar файл. Замените на свой путь и команду.
+                sh 'java -jar target/*.jar'
             }
         }
     }
