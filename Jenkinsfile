@@ -1,27 +1,23 @@
 pipeline {
     agent any
+tools {
+    maven 'M3' // Используем Maven tool с именем 'M3'
+}
 
-    tools {
-        maven 'M3'  // Используем Maven tool с именем 'M3', которое вы настроили в Jenkins
+stages {
+    stage('Checkout') {
+        steps {
+            git credentialsId: 'your-git-credentials', url: 'git@github.com:your-username/simple-maven-m3-project.git'  // Используйте ваши учетные данные Git
+        }
     }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                git credentialsId: 'jenkins-ssh', url: 'git@github.com:Zumel-bot/node-app.git'
-            }
+    stage('Build') {
+        steps {
+            sh 'mvn clean install'
         }
-
-        stage('Build') {
-            steps {
-                sh 'mvn clean install -DskipTests=true'
-            }
-        }
-
-        stage('Run') {
-            steps {
-                sh 'java -jar target/*.jar'
-            }
+    }
+    stage('Run') {
+        steps {
+            sh 'java -jar target/simple-maven-m3-project-1.0-SNAPSHOT.jar'
         }
     }
 }
